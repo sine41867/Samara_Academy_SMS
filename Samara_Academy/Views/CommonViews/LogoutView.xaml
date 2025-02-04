@@ -1,0 +1,19 @@
+﻿<Window x:Class="Samara_Academy.Views.CommonViews.LogoutView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Samara_Academy.Views.CommonViews"
+        xmlns:vm="clr-namespace:Samara_Academy.VMs.CommonVMs"
+        mc:Ignorable="d"
+         Height="200" Width="300">
+    <Window.DataContext>
+        <vm:LogoutVM/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Logging out" Margin="0 0 0 15"/>
+            <Path  Style="{StaticResource spinnerStyle}"/>
+        </StackPanel>
+    </Grid>
+</Window>

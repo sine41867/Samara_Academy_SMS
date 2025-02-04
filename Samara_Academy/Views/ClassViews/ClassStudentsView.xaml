@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="Samara_Academy.Views.ClassViews.ClassStudentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Samara_Academy.Views.ClassViews"
+             mc:Ignorable="d" 
+                         xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:classvms="clr-namespace:Samara_Academy.VMs.ClassVMs" d:DataContext="{d:DesignInstance Type=classvms:ClassStudentsVM}"
+             d:DesignHeight="720" d:DesignWidth="880" d:Background="White">
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UserControl.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+             Storyboard.TargetProperty="Opacity"
+             From="0" To="1.0"
+             Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooltoVis"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+
+
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" VerticalAlignment="Center">
+            <Button VerticalAlignment="Center" Style="{StaticResource backButton}" Command="{Binding GoBackCommand}" Margin="0 0 15 0">
+                <icons:PackIconMaterial Kind="ArrowLeft" Style="{StaticResource backButtonIcon}"/>
+            </Button>
+            <TextBlock Text="Class Students" DockPanel.Dock="Left" Style="{StaticResource Heading01Style}"/>
+            <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Text="{Binding ClassID, StringFormat='Class ID : {0}'}" FontSize="15" FontWeight="Medium"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Margin="0 15 0 0" VerticalAlignment="Center">
+            <TextBlock VerticalAlignment="Center" Text="{Binding TotalRecords, StringFormat='No of Students : {0}'}" FontSize="15" FontWeight="Medium"/>
+
+            <Grid Width="200" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="{StaticResource TextBrush}" IsHitTestVisible="False" Panel.ZIndex="1" Text="Search here..." Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BooltoVis}}"/>
+                <TextBox x:Name="txtSearch" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource txtBoxSearch}"/>
+                <icons:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#6C726C" HorizontalAlignment="Right" Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BooltoVis}}"/>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Width="250" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <TextBlock Text="Search By" Margin="0 0 15 0" VerticalAlignment="Center" Foreground="{StaticResource TextBrush}" IsHitTestVisible="False"/>
+                <ComboBox Width="150" ItemsSource="{Binding Headings}" SelectedIndex="0" Style="{StaticResource MaterialDesignComboBox}" HorizontalContentAlignment="Center" SelectedItem="{Binding SearchBy, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+        </DockPanel>
+
+        <Grid Grid.Row="2" Panel.ZIndex="1" Background="Transparent" Visibility="{Binding IsLoading,Converter={StaticResource BooltoVis}}">
+            <Border Background="{StaticResource BackgroundMainBrush}" Opacity="0.4"/>
+            <Path  Style="{StaticResource spinnerStyle}"/>
+        </Grid>
+
+        <DataGrid ItemsSource="{Binding Students}" Style="{DynamicResource DataGridStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2" >
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Actions" Width="80" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Style="{StaticResource gridEditButton}" Command="{Binding DataContext.RemoveEnrollmentCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                    <icons:PackIconMaterial Kind="Delete" Style="{StaticResource gridButtonIcon}"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Student ID" IsReadOnly="True" Width="*" MinWidth="80" Binding="{Binding student_id}" ElementStyle="{StaticResource WrappedTextBlockStyle}"/>
+                <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" MinWidth="100" Binding="{Binding name}" ElementStyle="{StaticResource WrappedTextBlockStyle}"/>
+                <DataGridTextColumn Header="Mobile" IsReadOnly="True" Width="*" MinWidth="100" Binding="{Binding mobile}" ElementStyle="{StaticResource WrappedTextBlockStyle}"/>
+                <DataGridTextColumn Header="WhatsApp" IsReadOnly="True" Width="*" MinWidth="100" Binding="{Binding whatsapp}" ElementStyle="{StaticResource WrappedTextBlockStyle}"/>
+                <DataGridTextColumn Header="Enrolled Date" IsReadOnly="True" Width="*" MinWidth="100" Binding="{Binding enrolled_date}" ElementStyle="{StaticResource WrappedTextBlockStyle}"/>
+                <DataGridTextColumn Header="Enrolled By" IsReadOnly="True" Width="*" MinWidth="100" Binding="{Binding enrolled_by}" ElementStyle="{StaticResource WrappedTextBlockStyle}"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <StackPanel Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BooltoVis}}" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">
+            <Button Style="{StaticResource paginationButton1}" Content="&lt;&lt;" Command="{Binding PageNavigationCommand}" CommandParameter="First" Margin="2" />
+            <Button Style="{StaticResource paginationButton2}" Content="&lt;" Command="{Binding PageNavigationCommand}" CommandParameter="Previous" Margin="2" />
+
+            <TextBlock Style="{StaticResource paginationText}" Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="5 0 5 0"/>
+            <TextBlock Text=" of " VerticalAlignment="Center"/>
+            <TextBlock Style="{StaticResource paginationText}" Text="{Binding TotalPages}" VerticalAlignment="Center" Margin="5 0 5 0"/>
+
+            <Button Style="{StaticResource paginationButton2}" Content=">" Command="{Binding PageNavigationCommand}" CommandParameter="Next" Margin="2" />
+            <Button Style="{StaticResource paginationButton1}" Content=">>" Command="{Binding PageNavigationCommand}" CommandParameter="Last" Margin="2" />
+        </StackPanel>
+    </Grid>
+</UserControl>
+
+

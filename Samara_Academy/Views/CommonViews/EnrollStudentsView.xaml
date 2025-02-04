@@ -1,0 +1,124 @@
+﻿<Window x:Class="Samara_Academy.Views.CommonViews.EnrollStudentsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Samara_Academy.Views.CommonViews"
+        mc:Ignorable="d"
+                xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+ 
+        xmlns:helper="clr-namespace:Samara_Academy.Utilities.Helpers"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="400" Width="500" d:Background="White"
+        xmlns:vmCommon="clr-namespace:Samara_Academy.VMs.CommonVMs" d:DataContext="{d:DesignInstance Type=vmCommon:EnrollAStudentVM}"
+        Title="Enroll Students"  WindowStartupLocation="CenterScreen"  WindowStyle="None" AllowsTransparency="True" Background="Transparent" >
+
+
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooltoVis"/>
+        <helper:IndexConverter x:Key="IndexConverter" />
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+             Storyboard.TargetProperty="Opacity"
+             From="0" To="1.0"
+             Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Border Background="{StaticResource BackgroundMainBrush}" Padding="15 0 15 15" CornerRadius="10" BorderThickness="1" BorderBrush="{StaticResource PrimaryBrush}" MouseDown="Border_MouseDown" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+
+            <DockPanel Grid.Row="0" Margin="0 0 0 0">
+                <TextBlock DockPanel.Dock="Left"  Style="{StaticResource Heading01Style2}" Text="Enroll a Student"/>
+                <Button HorizontalAlignment="Right" x:Name="btnClose" Click="btnClose_Click" Style="{StaticResource windowButton}" >
+                    <icons:PackIconMaterial Kind="Close" Style="{StaticResource windowButtonIcon}"/>
+                </Button>
+            </DockPanel>
+
+            <DockPanel HorizontalAlignment="Stretch" Margin="0 0 0 15" Grid.Row="1" >
+                <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0 0 10 0 " Text="{Binding StudentID}" Style="{StaticResource TextBoxLabelStyle01}"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <TextBox  materialDesign:TextFieldAssist.TextFieldCornerRadius="5 0 0 5" HorizontalAlignment="Right"  materialDesign:HintAssist.Hint="Ex : CLS000001" Style="{StaticResource AddTextBoxStyle01}" MaxLength="9" Width="150" Text="{Binding ClassID}"/>
+
+                    
+                    <Button HorizontalAlignment="Right" Style="{StaticResource btnStyle02}" Command="{Binding AddtoEnrollCommand}">
+                        <icons:BootstrapIcons Kind="PlusCircle" />
+                    </Button>
+                    <Button HorizontalAlignment="Right"  Style="{StaticResource btnStyle01}" Command="{Binding SearchClassCommand}">
+                        <icons:PackIconMaterial Kind="TextSearch" Style="{StaticResource gridButtonIcon}"/>
+                    </Button>
+
+                </StackPanel>
+                
+            </DockPanel>
+            <Grid Grid.Row="2" Panel.ZIndex="1" Background="Transparent" Visibility="{Binding IsLoading,Converter={StaticResource BooltoVis}}">
+                <Border Background="{StaticResource BackgroundMainBrush}" Opacity="0.4"/>
+                <Path  Style="{StaticResource spinnerStyle}"/>
+            </Grid>
+            <ListView Grid.Row="2" ItemsSource="{Binding EnrolledClasses}" AlternationCount="1000" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource gridEditButton}"  Command="{Binding DataContext.RemoveFromEnrollCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
+                                        <icons:PackIconMaterial Kind="Delete" Style="{StaticResource gridButtonIcon}" />
+                                    </Button>
+
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="#" Width="20">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=(ItemsControl.AlternationIndex), Converter={StaticResource IndexConverter}}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="ID" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ClassID}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name" Width="130">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 0">
+
+                <Button Content="Enroll" Command="{Binding EnrollCommand}" Style="{StaticResource saveButton}"/>
+                <Button Content="Cancel" Style="{StaticResource cancelButton}" Command="{Binding ClearCommand}"/>
+            </StackPanel>
+
+        </Grid>
+    </Border>
+
+</Window>

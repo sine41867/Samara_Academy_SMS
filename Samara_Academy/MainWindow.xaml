@@ -1,0 +1,128 @@
+﻿<Window x:Class="Samara_Academy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Samara_Academy"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1080" WindowStartupLocation="CenterScreen"  WindowStyle="None" AllowsTransparency="True" Background="Transparent" >
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+             Storyboard.TargetProperty="Opacity"
+             From="0" To="1.0"
+             Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+
+    <Border Grid.Row="0" Background="{StaticResource BackgroundMainBrush}" CornerRadius="10" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" CornerRadius="10 0 0 10" Background="{StaticResource PrimaryBrush}">
+                <DockPanel Margin="10">
+
+                    <Separator Margin="25" DockPanel.Dock="Top"/>
+
+                    <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="DashboardVM">
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconMaterial Kind="Home" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Dashboard"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="StudentVM">
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconMaterial Kind="AccountChild" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Student"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="TeacherVM">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" >
+                                <icons:PackIconMaterial Kind="AccountNetwork" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Teacher"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="ClassVM">
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconMaterial Kind="OfficeBuilding"  Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Class"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="UserVM">
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconMaterial Kind="AccountGroup"  Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="User"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="LogVM">
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconMaterial Kind="History"  Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Log"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="ProfileVM">
+                            <StackPanel Orientation="Horizontal">
+                                <icons:PackIconMaterial Kind="Account"  Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Profile"/>
+                            </StackPanel>
+                        </Button>
+
+
+
+                    </StackPanel>
+
+                    <Button Style="{StaticResource menuButton}" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"  Command="{Binding NavigateCommand}" CommandParameter="LogoutVM">
+                        <StackPanel Orientation="Horizontal">
+                            <icons:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Logout"/>
+                        </StackPanel>
+                    </Button>
+                </DockPanel>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Margin="0 0 10 0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button x:Name="btnMinimize" Click="btnMinimize_Click"  Style="{StaticResource windowButton}">
+                        <icons:PackIconMaterial Kind="WindowMinimize" Style="{StaticResource windowButtonIcon}"/>
+                    </Button>
+
+                    <Button x:Name="btnMaximize" Click="btnMaximize_Click" Style="{StaticResource windowButton}">
+                        <icons:PackIconMaterial Kind="WindowMaximize" Style="{StaticResource windowButtonIcon}"/>
+                    </Button>
+
+                    <Button x:Name="btnClose" Click="btnClose_Click" Style="{StaticResource windowButton}" >
+                        <icons:PackIconMaterial Kind="Close" Style="{StaticResource windowButtonIcon}"/>
+                    </Button>
+
+                </StackPanel>
+
+                <ContentControl Grid.Row="1"  x:Name="Pages" Content="{Binding CurrentView}" Margin="25 10 25 25"/>
+            </Grid>
+        </Grid>
+
+    </Border>
+
+
+</Window>
+

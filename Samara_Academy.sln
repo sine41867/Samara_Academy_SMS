@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samara_Academy", "Samara_Academy\Samara_Academy.csproj", "{6A7C360D-661D-4761-85FE-723B70172DEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A7C360D-661D-4761-85FE-723B70172DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A7C360D-661D-4761-85FE-723B70172DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A7C360D-661D-4761-85FE-723B70172DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A7C360D-661D-4761-85FE-723B70172DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A08BF297-E92F-44EF-91F0-4598CC41A6F8}
+	EndGlobalSection
+EndGlobal

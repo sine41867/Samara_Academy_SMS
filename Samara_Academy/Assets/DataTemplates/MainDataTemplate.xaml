@@ -1,0 +1,101 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    
+                    xmlns:vmCommon="clr-namespace:Samara_Academy.VMs.CommonVMs"
+                    xmlns:viewCommon ="clr-namespace:Samara_Academy.Views.CommonViews"
+                    
+                    xmlns:vmStudent="clr-namespace:Samara_Academy.VMs.StudentVMs"
+                    xmlns:viewStudent ="clr-namespace:Samara_Academy.Views.StudentViews"
+                    
+                    xmlns:vmLog="clr-namespace:Samara_Academy.VMs.LogVMs"
+                    xmlns:viewLog ="clr-namespace:Samara_Academy.Views.LogViews"
+                    
+                    xmlns:vmTeacher="clr-namespace:Samara_Academy.VMs.TeacherVMs"
+                    xmlns:viewTeacher ="clr-namespace:Samara_Academy.Views.TeacherViews"
+                    
+                    xmlns:vmUser="clr-namespace:Samara_Academy.VMs.UserVMs"
+                    xmlns:viewUser ="clr-namespace:Samara_Academy.Views.UserViews"
+                    
+                     xmlns:vmProfile="clr-namespace:Samara_Academy.VMs.ProfileVMs"
+                    xmlns:viewProfile ="clr-namespace:Samara_Academy.Views.ProfileViews"
+                    
+                    xmlns:vmClass="clr-namespace:Samara_Academy.VMs.ClassVMs"
+                    xmlns:viewClass ="clr-namespace:Samara_Academy.Views.ClassViews">
+
+    <DataTemplate DataType="{x:Type vmCommon:DashboardVM}">
+        <viewCommon:DashboardView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmStudent:AddStudentVM}">
+        <viewStudent:AddStudentView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmStudent:StudentVM}">
+        <viewStudent:StudentView/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vmStudent:DetailsStudentVM}">
+        <viewStudent:DetailsStudentView/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vmTeacher:AddTeacherVM}">
+        <viewTeacher:AddTeacherView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmTeacher:DetailsTeacherVM}">
+        <viewTeacher:DetailsTeacherView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmTeacher:TeacherVM}">
+        <viewTeacher:TeacherView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmCommon:BlankVM}">
+        <viewCommon:BlankView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmClass:ClassVM}">
+        <viewClass:ClassView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmClass:AddClassVM}">
+        <viewClass:AddClassView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmClass:DetailsClassVM}">
+        <viewClass:DetailsClassView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmClass:ClassStudentsVM}">
+        <viewClass:ClassStudentsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmLog:LogVM}">
+        <viewLog:LogView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmUser:UserVM}">
+        <viewUser:UserView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmUser:AddUserVM}">
+        <viewUser:AddUserView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmProfile:ProfileVM}">
+        <viewProfile:ProfileView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmCommon:SearchClassVM}">
+        <viewCommon:SeacrchClassView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmCommon:SearchTeacherVM}">
+        <viewCommon:SearchTeacherView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmProfile:ChangeOwnPasswordVM}">
+        <viewProfile:ChangeOwnPasswordView/>
+    </DataTemplate>
+
+</ResourceDictionary>
