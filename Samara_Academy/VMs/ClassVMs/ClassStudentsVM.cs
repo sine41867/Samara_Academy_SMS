@@ -210,7 +210,7 @@ namespace Samara_Academy.VMs.ClassVMs
 
                     if (Students == null)
                     {
-                        _navigationVM.CurrentView = new BlankVM(_navigationVM, "ClassStudentVM");
+                        _navigationVM.CurrentView = new BlankVM(_navigationVM, "ClassStudentVM", ClassID);
                         return;
                     }
 
@@ -227,7 +227,7 @@ namespace Samara_Academy.VMs.ClassVMs
                     if (TotalRecords == -1)
                     {
                         token.ThrowIfCancellationRequested();
-                        _navigationVM.CurrentView = new BlankVM(_navigationVM, "ClassStudentVM");
+                        _navigationVM.CurrentView = new BlankVM(_navigationVM, "ClassStudentVM", ClassID);
                     }
 
                     TotalPages = (int)Math.Ceiling((double)TotalRecords / _pageSize);
@@ -286,12 +286,12 @@ namespace Samara_Academy.VMs.ClassVMs
         private void LoadHeadings()
         {
 
-            _headingKeyPairs.Add("Student ID", "student_id");
+            _headingKeyPairs.Add("Student ID", "tbl_student.student_id");
             _headingKeyPairs.Add("Name", "name");
             _headingKeyPairs.Add("Mobile", "mobile");
             _headingKeyPairs.Add("WhatsApp", "whatsapp");
             _headingKeyPairs.Add("Enrolled Date", "registered_date");
-            _headingKeyPairs.Add("Enrolled By", "enrolled_by");
+            _headingKeyPairs.Add("Enrolled By", "tbl_enrollment.user_id");
 
             Headings = _headingKeyPairs.Keys.ToList();
 

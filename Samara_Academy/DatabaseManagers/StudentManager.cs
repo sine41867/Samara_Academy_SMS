@@ -303,7 +303,7 @@ namespace Samara_Academy.DatabaseManagers
 
             if (!string.IsNullOrEmpty(searchText) && !string.IsNullOrEmpty(searchBy))
             {
-                query = $"tbl_enrollment.enrolled_date as enrolled_date, tbl_enrollment.user_id as enrolled_by, tbl_student.* FROM tbl_enrollment Left Join tbl_student on tbl_enrollment.student_id = tbl_student.student_id WHERE tbl_enrollment.class_id = '{classId}' and {searchBy} LIKE @searchText";
+                query = $"SELECT tbl_enrollment.enrolled_date as enrolled_date, tbl_enrollment.user_id as enrolled_by, tbl_student.* FROM tbl_enrollment Left Join tbl_student on tbl_enrollment.student_id = tbl_student.student_id WHERE tbl_enrollment.class_id = '{classId}' and {searchBy} LIKE @searchText";
 
 
                 parameters.Add(new MySqlParameter("@searchText", "%" + searchText + "%"));

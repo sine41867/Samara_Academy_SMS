@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Samara_Academy.Views.ClassViews"
              mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             
                          xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:classvms="clr-namespace:Samara_Academy.VMs.ClassVMs" d:DataContext="{d:DesignInstance Type=classvms:ClassStudentsVM}"
              d:DesignHeight="720" d:DesignWidth="880" d:Background="White">
     <UserControl.Triggers>
@@ -29,7 +31,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="65"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
 
 
         </Grid.RowDefinitions>
@@ -46,9 +48,10 @@
             <TextBlock VerticalAlignment="Center" Text="{Binding TotalRecords, StringFormat='No of Students : {0}'}" FontSize="15" FontWeight="Medium"/>
 
             <Grid Width="200" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="{StaticResource TextBrush}" IsHitTestVisible="False" Panel.ZIndex="1" Text="Search here..." Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BooltoVis}}"/>
-                <TextBox x:Name="txtSearch" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource txtBoxSearch}"/>
-                <icons:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#6C726C" HorizontalAlignment="Right" Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BooltoVis}}"/>
+                <Grid Width="200" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <TextBox materialDesign:HintAssist.Hint="Search"  materialDesign:HintAssist.IsFloating="False" BorderBrush="Transparent" BorderThickness="0" Padding="10" x:Name="txtSearch" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="10" materialDesign:TextFieldAssist.HasClearButton="True" />
+                    <icons:PackIconMaterial Foreground="{StaticResource PrimaryBrush}" Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" HorizontalAlignment="Right" Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BooltoVis}}"/>
+                </Grid>
             </Grid>
 
             <StackPanel Orientation="Horizontal" Width="250" HorizontalAlignment="Right" DockPanel.Dock="Right">
@@ -87,15 +90,23 @@
 
         </DataGrid>
         <StackPanel Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty,Converter={StaticResource BooltoVis}}" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">
-            <Button Style="{StaticResource paginationButton1}" Content="&lt;&lt;" Command="{Binding PageNavigationCommand}" CommandParameter="First" Margin="2" />
-            <Button Style="{StaticResource paginationButton2}" Content="&lt;" Command="{Binding PageNavigationCommand}" CommandParameter="Previous" Margin="2" />
+            <Button Style="{StaticResource paginationButton1}" Command="{Binding PageNavigationCommand}" CommandParameter="First" >
+                <icons:BootstrapIcons Kind="ArrowBarLeft"/>
+            </Button>
+            <Button Style="{StaticResource paginationButton1}" Command="{Binding PageNavigationCommand}" CommandParameter="Previous" >
+                <icons:BootstrapIcons Kind="PlayCircle" RotationAngle="180"/>
+            </Button>
 
             <TextBlock Style="{StaticResource paginationText}" Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="5 0 5 0"/>
-            <TextBlock Text=" of " VerticalAlignment="Center"/>
+            <TextBlock Text=" of " VerticalAlignment="Center" />
             <TextBlock Style="{StaticResource paginationText}" Text="{Binding TotalPages}" VerticalAlignment="Center" Margin="5 0 5 0"/>
 
-            <Button Style="{StaticResource paginationButton2}" Content=">" Command="{Binding PageNavigationCommand}" CommandParameter="Next" Margin="2" />
-            <Button Style="{StaticResource paginationButton1}" Content=">>" Command="{Binding PageNavigationCommand}" CommandParameter="Last" Margin="2" />
+            <Button Style="{StaticResource paginationButton1}" Command="{Binding PageNavigationCommand}" CommandParameter="Next" >
+                <icons:BootstrapIcons Kind="PlayCircle" />
+            </Button>
+            <Button Style="{StaticResource paginationButton1}" Command="{Binding PageNavigationCommand}" CommandParameter="Last" >
+                <icons:BootstrapIcons Kind="ArrowBarRight" />
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

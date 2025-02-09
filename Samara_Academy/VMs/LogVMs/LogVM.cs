@@ -225,7 +225,7 @@ namespace Samara_Academy.VMs.LogVMs
         private void LoadHeadings()
         {
 
-            _headingKeyPairs.Add("Log ID", "student_id");
+            _headingKeyPairs.Add("Log ID", "log_id");
             _headingKeyPairs.Add("Type", "type");
             _headingKeyPairs.Add("Time", "time");
             _headingKeyPairs.Add("Date", "date");

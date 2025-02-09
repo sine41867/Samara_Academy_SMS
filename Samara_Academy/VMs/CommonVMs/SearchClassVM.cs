@@ -178,7 +178,7 @@ namespace Samara_Academy.VMs.CommonVMs
         {
             _headingKeyPairs.Add("Class ID", "class_id");
             _headingKeyPairs.Add("Name", "name");
-            _headingKeyPairs.Add("Mobile", "fee");
+            _headingKeyPairs.Add("Fee", "fee");
             _headingKeyPairs.Add("Time", "time");
             _headingKeyPairs.Add("Day", "day");
             _headingKeyPairs.Add("Registered Date", "registered_date");

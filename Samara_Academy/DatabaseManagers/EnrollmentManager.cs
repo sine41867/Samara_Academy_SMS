@@ -116,7 +116,7 @@ namespace Samara_Academy.DatabaseManagers
                                         if (logParameters != null)
                                         {
                                             command.Parameters.AddRange(logParameters);
-                                            command.Parameters.Add(new MySqlParameter("@description", $"Student ID : {studentId}, Class ID : {cls.ClassID}"));
+                                            command.Parameters.Add(new MySqlParameter("@description", $"{studentId}, {cls.ClassID}"));
                                         }
                                         int logRows = command.ExecuteNonQuery();
 
@@ -204,7 +204,7 @@ namespace Samara_Academy.DatabaseManagers
                 new MySqlParameter("@time", DateTime.Now.ToString("HH:mm:ss")),
                 new MySqlParameter("@type", "Leave"),
                 new MySqlParameter("@user_id", SharedResources.UserID),
-                new MySqlParameter("@description", $"Student ID : {studentID}, Class ID : {classID}")
+                new MySqlParameter("@description", $"{studentID}, {classID}")
 
             };
 
