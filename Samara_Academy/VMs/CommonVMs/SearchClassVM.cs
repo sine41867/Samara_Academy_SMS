@@ -18,7 +18,6 @@ namespace Samara_Academy.VMs.CommonVMs
         private bool _isLoading;
         private bool _isLoadingFailed;
         private List<string> _headings;
-        private Dictionary<string, string> _headingKeyPairs;
         private string _searchText;
         private string _searchBy;
         private string _selectedClassID;
@@ -109,14 +108,13 @@ namespace Samara_Academy.VMs.CommonVMs
             CancelCommand = new RelayCommand(Cancel);
 
             Classes = new DataTable();
-            Headings = new List<string>();
-            _headingKeyPairs = new Dictionary<string, string>();
-            
-            SearchBy = "";
+            Headings = Resources.ClassHeadings;
+
+            SearchBy = Headings[0];
 
             IsLoadingFailed = false;
             IsLoading = false;
-            LoadHeadings();
+            
 
         }
         private void CopyClass(object parameter)
@@ -145,7 +143,7 @@ namespace Samara_Academy.VMs.CommonVMs
                 await Task.Run(() => 
                 {
                     token.ThrowIfCancellationRequested();
-                    Classes = new ClassManager().Classes(SearchText, _headingKeyPairs[SearchBy]);
+                    Classes = new ClassManager().Classes(SearchText, Resources.ClassHeadingKeyPairs[SearchBy]);
                     token.ThrowIfCancellationRequested();
                     if (Classes == null)
                     {
@@ -171,21 +169,6 @@ namespace Samara_Academy.VMs.CommonVMs
         {
             SelectedClassID = "";
             Classes = new DataTable();
-        }
-
-
-        private void LoadHeadings()
-        {
-            _headingKeyPairs.Add("Class ID", "class_id");
-            _headingKeyPairs.Add("Name", "name");
-            _headingKeyPairs.Add("Fee", "fee");
-            _headingKeyPairs.Add("Time", "time");
-            _headingKeyPairs.Add("Day", "day");
-            _headingKeyPairs.Add("Registered Date", "registered_date");
-
-            Headings = _headingKeyPairs.Keys.ToList();
-
-            SearchBy = Headings[0];
         }
 
     }

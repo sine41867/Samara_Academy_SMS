@@ -21,7 +21,6 @@ namespace Samara_Academy.VMs.LogVMs
         private int _currentPage = 1;
         private int _pageSize = 12;
         private List<string> _headings;
-        private Dictionary<string, string> _headingKeyPairs;
         private string _searchText;
         private string _searchBy;
 
@@ -126,15 +125,13 @@ namespace Samara_Academy.VMs.LogVMs
             PageNavigationCommand = new RelayCommand(PageNavigation);
 
             Logs = new DataTable();
-            Headings = new List<string>();
-            _headingKeyPairs = new Dictionary<string, string>();
+            Headings = Resources.LogHeadings;
             TotalPages = 1;
             TotalRecords = 0;
-            SearchBy = "";
+            SearchBy = Headings[0];
 
 
             IsLoading = true;
-            LoadHeadings();
             LoadData();
 
 
@@ -180,7 +177,7 @@ namespace Samara_Academy.VMs.LogVMs
                 {
                     token.ThrowIfCancellationRequested();
 
-                    Logs = new LogManager().Logs(_pageSize, offset, SearchText, _headingKeyPairs[SearchBy]);
+                    Logs = new LogManager().Logs(_pageSize, offset, SearchText, Resources.LogHeadingKeyPairs[SearchBy]);
 
                     if (Logs == null)
                     {
@@ -222,20 +219,7 @@ namespace Samara_Academy.VMs.LogVMs
             
 
         }
-        private void LoadHeadings()
-        {
-
-            _headingKeyPairs.Add("Log ID", "log_id");
-            _headingKeyPairs.Add("Type", "type");
-            _headingKeyPairs.Add("Time", "time");
-            _headingKeyPairs.Add("Date", "date");
-            _headingKeyPairs.Add("User ID", "user_id");
-            _headingKeyPairs.Add("Description", "description");
-
-            Headings = _headingKeyPairs.Keys.ToList();
-
-            SearchBy = Headings[0];
-        }
+        
 
     }
 }

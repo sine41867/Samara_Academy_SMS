@@ -25,7 +25,6 @@ namespace Samara_Academy.VMs.ClassVMs
         private int _currentPage = 1;
         private int _pageSize = 12;
         private List<string> _headings;
-        private Dictionary<string, string> _headingKeyPairs;
         private string _searchText;
         private string _searchBy;
 
@@ -135,15 +134,16 @@ namespace Samara_Academy.VMs.ClassVMs
             DetailsClassCommand = new RelayCommand(DetailsClass);
 
             Classes = new DataTable();
-            Headings = new List<string>();
-            _headingKeyPairs = new Dictionary<string, string>();
+           
             TotalPages = 1;
             TotalRecords = 0;
-            SearchBy = "";
-
 
             IsLoading = true;
-            LoadHeadings();
+            Headings = Resources.ClassHeadings;
+
+            SearchBy = Headings[0];
+
+
             LoadData();
 
 
@@ -201,7 +201,7 @@ namespace Samara_Academy.VMs.ClassVMs
                 {
                     token.ThrowIfCancellationRequested();
 
-                    Classes = new ClassManager().Classes(_pageSize, offset, SearchText, _headingKeyPairs[SearchBy]);
+                    Classes = new ClassManager().Classes(_pageSize, offset, SearchText, Resources.ClassHeadingKeyPairs[SearchBy]);
 
                     if (Classes == null)
                     {
@@ -248,21 +248,6 @@ namespace Samara_Academy.VMs.ClassVMs
             _cancellationTokenSource?.Cancel();
 
             _navigationVM.CurrentView = new AddClassVM(_navigationVM);
-        }
-
-
-        private void LoadHeadings()
-        {
-            _headingKeyPairs.Add("Class ID", "class_id");
-            _headingKeyPairs.Add("Name", "name");
-            _headingKeyPairs.Add("Fee", "fee");
-            _headingKeyPairs.Add("Time", "time");
-            _headingKeyPairs.Add("Day", "day");
-            _headingKeyPairs.Add("Registered Date", "registered_date");
-
-            Headings = _headingKeyPairs.Keys.ToList();
-
-            SearchBy = Headings[0];
         }
 
     }

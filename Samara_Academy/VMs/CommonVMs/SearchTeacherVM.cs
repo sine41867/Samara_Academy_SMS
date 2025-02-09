@@ -18,7 +18,6 @@ namespace Samara_Academy.VMs.CommonVMs
         private bool _isLoading;
         private bool _isLoadingFailed;
         private List<string> _headings;
-        private Dictionary<string, string> _headingKeyPairs;
         private string _searchText;
         private string _searchBy;
         private string _selectedTeacherID;
@@ -107,14 +106,12 @@ namespace Samara_Academy.VMs.CommonVMs
             CancelCommand = new RelayCommand(Cancel);
 
             Teachers = new DataTable();
-            Headings = new List<string>();
-            _headingKeyPairs = new Dictionary<string, string>();
-
-            SearchBy = "";
+            Headings = Resources.TeacherHeadings;
+            
+            SearchBy = Headings[0];
 
             IsLoadingFailed = false;
             IsLoading = false;
-            LoadHeadings();
 
         }
         private void CopyClass(object parameter)
@@ -143,7 +140,7 @@ namespace Samara_Academy.VMs.CommonVMs
                 await Task.Run(() =>
                 {
                     token.ThrowIfCancellationRequested();
-                    Teachers = new TeacherManager().Teachers(SearchText, _headingKeyPairs[SearchBy]);
+                    Teachers = new TeacherManager().Teachers(SearchText, Resources.TeacherHeadingKeyPairs[SearchBy]);
                     token.ThrowIfCancellationRequested();
                     if (Teachers == null)
                     {
@@ -171,19 +168,6 @@ namespace Samara_Academy.VMs.CommonVMs
             Teachers = new DataTable();
         }
 
-
-        private void LoadHeadings()
-        {
-            _headingKeyPairs.Add("Teacher ID", "teacher_id");
-            _headingKeyPairs.Add("Name", "name");
-            _headingKeyPairs.Add("Mobile", "mobile");
-            _headingKeyPairs.Add("WhatssApp", "whatsapp");
-            _headingKeyPairs.Add("Registered Date", "registered_date");
-
-            Headings = _headingKeyPairs.Keys.ToList();
-
-            SearchBy = Headings[0];
-        }
 
     }
 }

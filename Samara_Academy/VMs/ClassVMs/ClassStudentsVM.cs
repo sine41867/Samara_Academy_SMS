@@ -29,7 +29,6 @@ namespace Samara_Academy.VMs.ClassVMs
         private int _currentPage = 1;
         private int _pageSize = 12;
         private List<string> _headings;
-        private Dictionary<string, string> _headingKeyPairs;
         private string _searchText;
         private string _searchBy;
 
@@ -149,16 +148,16 @@ namespace Samara_Academy.VMs.ClassVMs
 
             
             Students = new DataTable();
-            Headings = new List<string>();
-            _headingKeyPairs = new Dictionary<string, string>();
-            
+            Headings = Resources.ClassStudentsHeadings;
+            SearchBy = Headings[0];
+
             TotalPages = 1;
             TotalRecords = 0;
-            SearchBy = "";
 
 
             IsLoading = true;
-            LoadHeadings();
+            
+   
             LoadData();
             
 
@@ -205,7 +204,7 @@ namespace Samara_Academy.VMs.ClassVMs
                 await Task.Run(() =>
                 {
                     token.ThrowIfCancellationRequested();
-                    Students = new StudentManager().StudentsByClassID(_pageSize, offset, ClassID, SearchText, _headingKeyPairs[SearchBy]);
+                    Students = new StudentManager().StudentsByClassID(_pageSize, offset, ClassID, SearchText, Resources.ClassStudentsHeadingKeyPairs[SearchBy]);
                     token.ThrowIfCancellationRequested();
 
                     if (Students == null)
@@ -283,19 +282,5 @@ namespace Samara_Academy.VMs.ClassVMs
             _navigationVM.CurrentView = new DetailsClassVM(_navigationVM, ClassID);
         }
 
-        private void LoadHeadings()
-        {
-
-            _headingKeyPairs.Add("Student ID", "tbl_student.student_id");
-            _headingKeyPairs.Add("Name", "name");
-            _headingKeyPairs.Add("Mobile", "mobile");
-            _headingKeyPairs.Add("WhatsApp", "whatsapp");
-            _headingKeyPairs.Add("Enrolled Date", "registered_date");
-            _headingKeyPairs.Add("Enrolled By", "tbl_enrollment.user_id");
-
-            Headings = _headingKeyPairs.Keys.ToList();
-
-            SearchBy = Headings[0];
-        }
     }
 }

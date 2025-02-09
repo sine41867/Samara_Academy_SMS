@@ -24,7 +24,7 @@ namespace Samara_Academy.VMs.StudentVMs
         private int _currentPage = 1;
         private int _pageSize = 12;
         private List<string> _headings;
-        private Dictionary<string, string> _headingKeyPairs;
+        
         private string _searchText;
         private string _searchBy;
 
@@ -135,15 +135,13 @@ namespace Samara_Academy.VMs.StudentVMs
             PageNavigationCommand = new RelayCommand(PageNavigation);
 
             Students = new DataTable();
-            Headings = new List<string>();
-            _headingKeyPairs = new Dictionary<string, string>();
+            Headings = Resources.StudentHeadings;
             TotalPages = 1;
             TotalRecords = 0;
-            SearchBy = "";
+            SearchBy = Headings[0];
 
 
             IsLoading = true;
-            LoadHeadings();
             LoadData();
 
 
@@ -190,7 +188,7 @@ namespace Samara_Academy.VMs.StudentVMs
                 await Task.Run(() =>
                 {
                     token.ThrowIfCancellationRequested();
-                    Students = new StudentManager().Students(_pageSize, offset, SearchText, _headingKeyPairs[SearchBy]);
+                    Students = new StudentManager().Students(_pageSize, offset, SearchText, Resources.StudentHeadingKeyPairs[SearchBy]);
                     token.ThrowIfCancellationRequested();
 
                     if (Students == null)
@@ -253,20 +251,6 @@ namespace Samara_Academy.VMs.StudentVMs
                 window.ShowDialog();
 
             }
-        }
-
-        private void LoadHeadings()
-        {
-
-            _headingKeyPairs.Add("Student ID", "student_id");
-            _headingKeyPairs.Add("Name", "name");
-            _headingKeyPairs.Add("Mobile", "mobile");
-            _headingKeyPairs.Add("WhatsApp", "whatsapp");
-            _headingKeyPairs.Add("Registered Date", "registered_date");
-
-            Headings = _headingKeyPairs.Keys.ToList();
-
-            SearchBy = Headings[0];
         }
 
     }
