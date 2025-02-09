@@ -261,10 +261,8 @@ namespace Samara_Academy.VMs.ClassVMs
         }
         private void SearchTeacher(object parameter)
         {
-            ////SearchClass window = new SearchClass();
-            ////window.ShowDialog();
-            ///
-            MessageBox.Show("Not Implemented Yet...");
+            SearchTeacherView window = new SearchTeacherView();
+            window.ShowDialog();
         }
         private void ViewStudents(object parameter)
         {
