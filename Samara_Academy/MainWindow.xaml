@@ -4,7 +4,7 @@
 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Samara_Academy"
+        xmlns:local="clr-namespace:Samara_Academy" xmlns:commonvms="clr-namespace:Samara_Academy.VMs.CommonVMs" d:DataContext="{d:DesignInstance Type=commonvms:NavigationVM}"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080" WindowStartupLocation="CenterScreen"  WindowStyle="None" AllowsTransparency="True" Background="Transparent" >
     <Window.Triggers>
@@ -62,14 +62,14 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="UserVM">
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="UserVM" IsHitTestVisible="{Binding IsAdmin}" IsEnabled="{Binding IsAdmin}">
                             <StackPanel Orientation="Horizontal">
                                 <icons:PackIconMaterial Kind="AccountGroup"  Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="User"/>
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="LogVM">
+                        <Button Style="{StaticResource menuButton}" Command="{Binding NavigateCommand}" CommandParameter="LogVM"  IsHitTestVisible="{Binding IsAdmin}" IsEnabled="{Binding IsAdmin}">
                             <StackPanel Orientation="Horizontal">
                                 <icons:PackIconMaterial Kind="History"  Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Log"/>

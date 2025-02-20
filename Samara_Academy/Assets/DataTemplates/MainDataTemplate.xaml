@@ -98,4 +98,8 @@
         <viewProfile:ChangeOwnPasswordView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vmLog:OwnLogVM}">
+        <viewLog:OwnLogView/>
+    </DataTemplate>
+
 </ResourceDictionary>

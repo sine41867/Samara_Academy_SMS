@@ -1,6 +1,7 @@
 ﻿using Samara_Academy.Models;
 using Samara_Academy.Utilities.Helpers;
 using Samara_Academy.Views.CommonViews;
+using Samara_Academy.Views.DialogBoxes;
 using Samara_Academy.VMs.ClassVMs;
 using Samara_Academy.VMs.LogVMs;
 using Samara_Academy.VMs.ProfileVMs;
@@ -32,12 +33,21 @@ namespace Samara_Academy.VMs.CommonVMs
 
         public ICommand NavigateCommand { get; }
 
-        public string CurrentUserId { get; set; }
+        public bool IsAdmin { get; }
 
         public NavigationVM()
         {
             NavigateCommand = new RelayCommand(Navigate);
             CurrentView = new DashboardVM(this);
+            
+            if(SharedResources.LoggedUser.UserRole == "Admin")
+            {
+                IsAdmin = true;
+            }
+            else
+            {
+                IsAdmin = false;
+            }
 
         }
 
@@ -63,11 +73,29 @@ namespace Samara_Academy.VMs.CommonVMs
                     break;
 
                 case "LogVM":
-                    CurrentView = new LogVM(this);
+                    if(IsAdmin)
+                    {
+                        CurrentView = new LogVM(this);
+                    }
+                    else
+                    {
+                        InfoDialog dialog = new InfoDialog(DisplayMessages.PermissionDenied);
+                        dialog.ShowDialog();
+
+                    }
+
                     break;
 
                 case "UserVM":
-                    CurrentView = new UserVM(this);
+                    if (IsAdmin)
+                    {
+                        CurrentView = new UserVM(this);
+                    }
+                    else
+                    {
+                        InfoDialog dialog = new InfoDialog(DisplayMessages.PermissionDenied);
+                        dialog.ShowDialog();
+                    }
                     break;
 
                 case "ProfileVM":

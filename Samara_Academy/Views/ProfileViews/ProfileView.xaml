@@ -52,6 +52,7 @@
 
         </Grid>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="15">
+            <Button Content="Activity Log" Command="{Binding MyLogCommand}" Width="120" HorizontalAlignment="Right"   Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
 
             <TextBlock Text="User ID" Style="{StaticResource TextBoxLabelStyle01}"/>
             <TextBox IsHitTestVisible="False" materialDesign:HintAssist.Hint="Ex : user123" Style="{StaticResource AddTextBoxStyle01}" MaxLength="15" Text="{Binding UserID}"/>

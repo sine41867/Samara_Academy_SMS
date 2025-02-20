@@ -40,6 +40,14 @@ namespace Samara_Academy.Utilities.Helpers
             { "WhatsApp", "whatsapp" },
             { "Registered Date", "registered_date" }
         };
+        public static Dictionary<string, string> OwnLogHeadingKeyPairs = new Dictionary<string, string>
+        {
+            { "Log ID", "log_id" },
+            { "Type", "type" },
+            { "Time", "time" },
+            { "Date", "date" },
+            { "Description", "description" }
+        };
         public static Dictionary<string, string> LogHeadingKeyPairs = new Dictionary<string, string>
         {
             { "Log ID", "log_id" },
@@ -73,6 +81,7 @@ namespace Samara_Academy.Utilities.Helpers
         public static List<string> ClassHeadings = ClassHeadingKeyPairs.Keys.ToList();
         public static List<string> TeacherHeadings = TeacherHeadingKeyPairs.Keys.ToList();
         public static List<string> LogHeadings = LogHeadingKeyPairs.Keys.ToList();
+        public static List<string> OwnLogHeadings = OwnLogHeadingKeyPairs.Keys.ToList();
         public static List<string> StudentHeadings = StudentHeadingKeyPairs.Keys.ToList();
         public static List<string> UserHeadings = UserHeadingKeyPairs.Keys.ToList();
         public Resources()

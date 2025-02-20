@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using Samara_Academy.VMs.LogVMs;
 
 namespace Samara_Academy.VMs.ProfileVMs
 {
@@ -153,6 +154,7 @@ namespace Samara_Academy.VMs.ProfileVMs
         public ICommand ReloadCommand { get; }
         public ICommand ChangePasswordCommand { get; }
         public ICommand UpdateCommand { get; }
+        public ICommand MyLogCommand { get; }
         public ProfileVM(NavigationVM navigationVM)
         {
             _navigationVM = navigationVM;
@@ -161,6 +163,7 @@ namespace Samara_Academy.VMs.ProfileVMs
             ModifyCommand = new RelayCommand(Modify);
             CancelCommand = new RelayCommand(Cancel);
             UpdateCommand = new RelayCommand(Update);
+            MyLogCommand = new RelayCommand(MyLogs);
             ChangePasswordCommand = new RelayCommand(ChangePassword);
 
             IsModifyMode = false;
@@ -202,6 +205,10 @@ namespace Samara_Academy.VMs.ProfileVMs
         private async void ChangePassword(object parameter)
         {
             _navigationVM.CurrentView = new ChangeOwnPasswordVM(_navigationVM);
+        }
+        private async void MyLogs(object parameter)
+        {
+            _navigationVM.CurrentView = new OwnLogVM(_navigationVM);
         }
         private async void Update(object parameter)
         {

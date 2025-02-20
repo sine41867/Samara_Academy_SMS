@@ -1,15 +1,18 @@
 ﻿using Samara_Academy.DatabaseManagers;
 using Samara_Academy.Utilities.Helpers;
-
 using Samara_Academy.VMs.CommonVMs;
-
+using Samara_Academy.VMs.ProfileVMs;
+using System;
+using System.Collections.Generic;
 using System.Data;
-
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Samara_Academy.VMs.LogVMs
 {
-    public class LogVM:VMBase
+    public class OwnLogVM:VMBase
     {
         private readonly NavigationVM _navigationVM;
 
@@ -115,17 +118,20 @@ namespace Samara_Academy.VMs.LogVMs
             }
         }
 
+        public ICommand GoBackCommand { get; }
+
         public ICommand PageNavigationCommand { get; }
 
-        public LogVM(NavigationVM navigationVM)
+        public OwnLogVM(NavigationVM navigationVM)
         {
 
             _navigationVM = navigationVM;
 
             PageNavigationCommand = new RelayCommand(PageNavigation);
+            GoBackCommand = new RelayCommand(GoBack);
 
             Logs = new DataTable();
-            Headings = Resources.LogHeadings;
+            Headings = Resources.OwnLogHeadings;
             TotalPages = 1;
             TotalRecords = 0;
             SearchBy = Headings[0];
@@ -161,6 +167,11 @@ namespace Samara_Academy.VMs.LogVMs
                 CurrentPage = page;
             }
         }
+        private void GoBack(object parameter)
+        {
+            _navigationVM.CurrentView = new ProfileVM(_navigationVM);
+
+        }
         private async void LoadData()
         {
             _cancellationTokenSource?.Cancel();
@@ -177,13 +188,13 @@ namespace Samara_Academy.VMs.LogVMs
                 {
                     token.ThrowIfCancellationRequested();
 
-                    Logs = new LogManager().Logs(_pageSize, offset, SearchText, Resources.LogHeadingKeyPairs[SearchBy]);
+                    Logs = new LogManager().OwnLogs(_pageSize, offset, SearchText, Resources.OwnLogHeadingKeyPairs[SearchBy]);
 
                     if (Logs == null)
                     {
                         token.ThrowIfCancellationRequested();
 
-                        _navigationVM.CurrentView = new BlankVM(_navigationVM, "LogVM");
+                        _navigationVM.CurrentView = new BlankVM(_navigationVM, "OwnLogVM");
                         return;
                     }
 
@@ -193,14 +204,14 @@ namespace Samara_Academy.VMs.LogVMs
                     }
                     else
                     {
-                        TotalRecords = new LogManager().LogsCount();
+                        TotalRecords = new LogManager().OwnLogsCount();
                     }
 
                     if (TotalRecords == -1)
                     {
                         token.ThrowIfCancellationRequested();
 
-                        _navigationVM.CurrentView = new BlankVM(_navigationVM, "LogVM");
+                        _navigationVM.CurrentView = new BlankVM(_navigationVM, "OwnLogVM");
                     }
 
                     TotalPages = (int)Math.Ceiling((double)TotalRecords / _pageSize);
@@ -216,10 +227,10 @@ namespace Samara_Academy.VMs.LogVMs
                 IsLoading = false;
             }
 
-            
+
 
         }
-        
+
 
     }
 }

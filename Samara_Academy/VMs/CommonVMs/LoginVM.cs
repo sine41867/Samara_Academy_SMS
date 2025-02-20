@@ -110,15 +110,7 @@ namespace Samara_Academy.VMs.CommonVMs
                 var dialogBox = new InfoDialog("Invalid username or password.");
                 dialogBox.ShowDialog();
             }
-            /*
-            SharedResources.UserID = "admin";
-            Window mainWindow = new MainWindow();
-            IsLoading = false;
-            mainWindow.Show();
-
-
-            Application.Current.Windows[0]?.Close();
-            */
+            
         }
 
 

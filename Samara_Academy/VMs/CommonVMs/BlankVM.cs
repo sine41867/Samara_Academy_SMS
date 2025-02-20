@@ -65,6 +65,9 @@ namespace Samara_Academy.VMs.CommonVMs
                 case "ProfileVM":
                     _navigationVM.CurrentView = new ProfileVM(_navigationVM);
                     break;
+                case "OwnLogVM":
+                    _navigationVM.CurrentView = new OwnLogVM(_navigationVM);
+                    break;
 
 
 

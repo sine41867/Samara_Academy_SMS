@@ -57,6 +57,7 @@ namespace Samara_Academy.Utilities.Helpers
 
 
                         });
+                        MessageBox.Show(ex.ToString());
                         return null;
 
                     }

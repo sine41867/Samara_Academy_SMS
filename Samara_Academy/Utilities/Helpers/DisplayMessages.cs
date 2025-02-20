@@ -78,6 +78,9 @@ namespace Samara_Academy.Utilities.Helpers
         public static string UserDisabledSuccess = "User deactivated Success.";
         public static string UserEnabledSuccess = "User activated Success.";
 
+        public static string PermissionDenied = "Permission Denied.";
+
+
 
 
     }
